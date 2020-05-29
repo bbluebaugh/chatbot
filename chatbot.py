@@ -51,5 +51,23 @@ for x, doc in enumerate(docs_x):
 
     training.append(bag)
     output.append(output_row)
+
 training = numpy.array(training)
 output = numpy.array(output)
+
+
+
+#start model training
+
+tensorflow.reset_default_graph()
+
+net = tflearn.input_data()shape = [None, len(training[0])]
+net = tflearn.fully_connected(net, 8) #8 neurons for the first hidden layer
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, len(output[0]), activation = "softmax") #output layer length of output
+net = tflearn.regression(net)
+
+model = tflearn.DNN(net)
+
+model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
+model.save("model.tflearn")
