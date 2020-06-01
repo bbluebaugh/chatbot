@@ -66,7 +66,7 @@ except:
 
 # start model training
 
-tf.reset_default_graph()
+tf.compat.v1.reset_default_graph()
 
 net = tflearn.input_data(shape = [None, len(training[0])])
 net = tflearn.fully_connected(net, 8) # 8 neurons for the first hidden layer
